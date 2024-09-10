@@ -10,11 +10,18 @@ import java.util.Properties;
 
 public class MysqlConnect {
     // init database constants
-    private static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mysql";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "1234";
-    private static final String MAX_POOL = "250";
+    public static final String DATABASE_DRIVER = "com.mysql.cj.jdbc.Driver";
+    public static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mysql";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "1234";
+    public static final String MAX_POOL = "250";
+
+    public void printTable() throws SQLException {
+        // Create a connection to the database
+        Connection conn = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        DBTablePrinter.printTable(conn, "Persons");
+    }
+
 
     // init connection object
     private Connection connection;
