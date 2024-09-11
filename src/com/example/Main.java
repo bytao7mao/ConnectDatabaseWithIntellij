@@ -14,18 +14,29 @@ public class Main {
         MysqlConnect mysqlConnect = new MysqlConnect();
         mysqlConnect.connect();
 
-        String query = "SELECT * FROM Persons;";
+        //create new table named students in database
+//        mysqlConnect.createTableStudents();
+        //INSERT data into table students
+//        mysqlConnect.insertIntoStudentsTable(
+//                1, "Marius", "Nicolae",
+//                "Teza de doctorat", "10");
+        //read data from database, table students
+
+
         try {
-            PreparedStatement statement = mysqlConnect.connect().prepareStatement(query);
+            PreparedStatement statement = mysqlConnect.connect().prepareStatement("SELECT * FROM Students;");
             statement.execute();
 
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("PersonID");
+                //retrieve each id from table
+                int id = rs.getInt("StudentID");
+                //retrieve each String from table
                 String name = rs.getString("LastName");
+                //Print each ID and Name
                 System.out.println("ID: " + id + ", Name: " + name);
             }
-            mysqlConnect.printTable();
+            mysqlConnect.printTable("Students");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
