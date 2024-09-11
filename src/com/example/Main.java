@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.DataAccessObject.Dao;
+import com.example.DataAccessObject.Student;
 import com.example.ReadFromXMLFile.RetrieveXMLData;
 import org.xml.sax.SAXException;
 
@@ -9,6 +11,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Main {
+    public static final String TABLE_NAME = "students";
+
 
 //    private void transferdataToDatabase(ArrayList<Object> list, Integer id, String firstName, String lastName, String subject, String marks){
 //        id = Integer.valueOf((String) list.get(0));
@@ -16,16 +20,20 @@ public class Main {
 //    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParserConfigurationException, IOException, SAXException {
-        Integer id;
-        ArrayList<String> fillArrayListwithXml = RetrieveXMLData.getXMLdata();
+        ArrayList<Student> students = RetrieveXMLData.getXMLdata();
 
-//        System.out.println(fillArrayListwithXml.get(0));//id
-        id = Integer.valueOf((String) fillArrayListwithXml.get(0));
-        System.out.println(id);
-        System.out.println(fillArrayListwithXml.get(1).getClass());//name
-        System.out.println(fillArrayListwithXml.get(2));//lastname
-        System.out.println(fillArrayListwithXml.get(3));//subject
-        System.out.println(fillArrayListwithXml.get(4));//marks
+        System.out.println();
+//        Integer id;
+//        ArrayList<String> fillArrayListwithXml = RetrieveXMLData.getXMLdata();
+
+//
+////        System.out.println(fillArrayListwithXml.get(0));//id
+//        id = Integer.valueOf((String) fillArrayListwithXml.get(0));
+//        System.out.println(id);
+//        System.out.println(fillArrayListwithXml.get(1).getClass());//name
+//        System.out.println(fillArrayListwithXml.get(2));//lastname
+//        System.out.println(fillArrayListwithXml.get(3));//subject
+//        System.out.println(fillArrayListwithXml.get(4));//marks
 
 
 
@@ -34,14 +42,27 @@ public class Main {
         mysqlConnect.connect();
 
         //create new table named students in database
-//        mysqlConnect.createTableStudents();
+        mysqlConnect.createTableStudents();
         //INSERT data into table students @USAGE: IN COMBINATION WITH XML METHOD
-        mysqlConnect.insertIntoStudentsTable(
-                id, fillArrayListwithXml.get(1), fillArrayListwithXml.get(2),
-                fillArrayListwithXml.get(3), fillArrayListwithXml.get(4));
+
+        for (Student s:students) {
+            System.out.println(s.getFirstName());
+
+            System.out.println(s.getMarks());
+//
+//
+            mysqlConnect.insertIntoStudentsTable(
+                    s.getId(), s.getFirstName(), s.getLastName(),
+                    s.getSubject(), s.getMarks());
+        }
+
+//        mysqlConnect.deleteDuplicate();
 
 
-        readFromTableDatabase(mysqlConnect, "Students");
+
+
+//        readFromTableDatabase(mysqlConnect, TABLE_NAME);
+        mysqlConnect.printTable(TABLE_NAME);
     }
 
     private static void readFromTableDatabase(MysqlConnect mysqlConnect, String tableName) {
