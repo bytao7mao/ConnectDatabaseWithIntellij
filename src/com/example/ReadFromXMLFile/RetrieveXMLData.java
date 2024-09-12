@@ -16,16 +16,18 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class RetrieveXMLData {
 
 
+    public static final String PATHNAME = "C:\\Users\\tao\\IdeaProjects\\untitled2\\.idea\\Resources\\data.xml";
 
-    public static ArrayList<Student> getXMLdata() throws ParserConfigurationException, IOException, SAXException {
+    public static ArrayList<Student> getXMLdata(File file) throws ParserConfigurationException, IOException, SAXException {
         ArrayList<Student> students = new ArrayList<>();
-
         //creating a constructor of file class and parsing an XML file
-        File file = new File("C:\\Users\\tao\\IdeaProjects\\untitled2\\.idea\\Resources\\data.xml");
+//        File file = new File(PATHNAME);
+
 
         String xml = ""; //Populated XML String....
         //an instance of factory that gives a document builder

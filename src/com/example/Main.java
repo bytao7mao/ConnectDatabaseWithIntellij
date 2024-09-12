@@ -6,9 +6,11 @@ import com.example.ReadFromXMLFile.RetrieveXMLData;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static final String TABLE_NAME = "students";
@@ -20,7 +22,8 @@ public class Main {
 //    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParserConfigurationException, IOException, SAXException {
-        ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata();
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata(new File(sc.nextLine()));
 
         System.out.println();
 
