@@ -32,17 +32,17 @@ public class Main {
 //        mysqlConnect.createTableStudents();
         //INSERT data into table students @USAGE: IN COMBINATION WITH XML METHOD
 
-        for (Student s:studentArrayList) {
-            System.out.println(s.getFirstName());
-
-            System.out.println(s.getMarks());
-//
-//
-            //INSERT data into students TABLE DB
+//        for (Student s:studentArrayList) {
+////            System.out.println(s.getFirstName());
+////
+////            System.out.println(s.getMarks());
+////
+////
+//            //INSERT data into students TABLE DB
 //            mysqlConnect.insertIntoStudentsTable(
 //                    s.getId(), s.getFirstName(), s.getLastName(),
 //                    s.getSubject(), s.getMarks());
-        }
+//        }
 
 
         //delete
@@ -51,36 +51,50 @@ public class Main {
 
 
 
-//        readFromTableDatabase(mysqlConnect, TABLE_NAME);
-        mysqlConnect.printTable(TABLE_NAME);
+        readFromTableDatabase(mysqlConnect, TABLE_NAME);
+//        mysqlConnect.printTable(TABLE_NAME);
     }
 
-    private static void readFromTableDatabase(MysqlConnect mysqlConnect, String tableName) {
+    private static ArrayList<Student> readFromTableDatabase(MysqlConnect mysqlConnect, String tableName) {
+        ArrayList<Student> studentArrayList = new ArrayList<>();
         //read data from database, table students
         try {
-            PreparedStatement statement = mysqlConnect.connect().prepareStatement("SELECT * FROM " + tableName +" ;");
-            statement.execute();
+            PreparedStatement statement =
+                    mysqlConnect.connect().
+                            prepareStatement(
+                                    "SELECT * FROM students");
+
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
+                //transfering into POJO
+                studentArrayList.add(new Student(rs.getInt(MysqlConnect.STUDENT_ID),
+                        rs.getString(MysqlConnect.FIRST_NAME),
+                        rs.getString(MysqlConnect.LAST_NAME),
+                        rs.getString(MysqlConnect.SUBJECT),
+                        rs.getString(MysqlConnect.MARKS)));
+
                 //retrieve each id from table
-                int id = rs.getInt(MysqlConnect.STUDENT_ID);
-                //retrieve each String from table
-                String lastName = rs.getString(MysqlConnect.LAST_NAME);
-                String firstName = rs.getString(MysqlConnect.FIRST_NAME);
-                String subject = rs.getString(MysqlConnect.SUBJECT);
-                String marks = rs.getString(MysqlConnect.MARKS);
+//                int id = rs.getInt(MysqlConnect.STUDENT_ID);
+//                //retrieve each String from table
+//                String lastName = rs.getString(MysqlConnect.LAST_NAME);
+//                String firstName = rs.getString(MysqlConnect.FIRST_NAME);
+//                String subject = rs.getString(MysqlConnect.SUBJECT);
+//                String marks = rs.getString(MysqlConnect.MARKS);
                 //Print each ID and Name
-                System.out.println("ID: " + id + ", Name: " + lastName +
-                        ", First Name: " + firstName + ", Subject: " + subject
-                + ", Marks: " + marks);
             }
-            mysqlConnect.printTable(tableName);
+            for (Student s:studentArrayList) {
+                System.out.println("ID: " + s.getId() + ", Name: " + s.getFirstName() +
+                        ", First Name: " + s.getLastName() + ", Subject: " + s.getSubject()
+                        + ", Marks: " + s.getMarks());
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            mysqlConnect.disconnect();
+//            mysqlConnect.disconnect();
         }
+        return studentArrayList;
     }
 
 //            Connection conn = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
