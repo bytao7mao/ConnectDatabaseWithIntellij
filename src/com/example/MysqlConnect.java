@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.Util.DBTablePrinter;
+
 import java.sql.*;
 import java.util.Properties;
 
@@ -79,7 +81,7 @@ public class MysqlConnect {
         connect();
     }
 
-    public void insertIntoStudentsTable(Integer id,
+    public void insertIntoStudentsTable(Long id,
                                         String lastName,
                                         String firstName,
                                         String subject,
@@ -90,7 +92,7 @@ public class MysqlConnect {
                 "VALUES(?, ?, ?, ?, ?)";
         // Prepare Statement
         PreparedStatement statement = this.connection.prepareStatement(sqlCreate);
-        statement.setInt(1, id);
+        statement.setLong(1, id);
         statement.setString(2,lastName);
         statement.setString(3,firstName);
         statement.setString(4,subject);

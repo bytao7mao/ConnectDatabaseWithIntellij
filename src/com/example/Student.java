@@ -1,17 +1,19 @@
-package com.example.DataAccessObject;
+package com.example;
 
-public class Student {
-    private Integer id;
+import com.example.Util.DataTransferObject;
+
+public class Student implements DataTransferObject {
+    private Long id;
     private String firstName;
     private String lastName;
     private String subject;
     private String marks;
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,7 +60,7 @@ public class Student {
                 '}';
     }
 
-    public Student(Integer id, String firstName, String lastName, String subject, String marks) {
+    public Student(Long id, String firstName, String lastName, String subject, String marks) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

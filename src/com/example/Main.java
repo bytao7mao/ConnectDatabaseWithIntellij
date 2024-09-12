@@ -1,7 +1,5 @@
 package com.example;
 
-import com.example.DataAccessObject.Dao;
-import com.example.DataAccessObject.Student;
 import com.example.ReadFromXMLFile.RetrieveXMLData;
 import org.xml.sax.SAXException;
 
@@ -12,19 +10,21 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static com.example.MysqlConnect.*;
+
 public class Main {
     public static final String TABLE_NAME = "students";
-
-
-//    private void transferdataToDatabase(ArrayList<Object> list, Integer id, String firstName, String lastName, String subject, String marks){
-//        id = Integer.valueOf((String) list.get(0));
-//        firstName = list.get()
-//    }
-
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParserConfigurationException, IOException, SAXException {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please input your path file, location of your xml file:\n");
-        ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata(new File(sc.nextLine()));
+
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Please input your path file, location of your xml file:\n");
+//        ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata(new File(sc.nextLine()));
+//        System.out.println("What operation do you request me to do ?\n" +
+//                "1.CREATE\n" +
+//                "2.READ\n" +
+//                "3.UPDATE\n" +
+//                "4.DELETE\n");
+
 
         System.out.println();
 
@@ -32,6 +32,15 @@ public class Main {
         MysqlConnect mysqlConnect = new MysqlConnect();
         mysqlConnect.connect();
 
+//        String answerFromUser = sc.nextLine();
+//        if (answerFromUser.equalsIgnoreCase("create") || answerFromUser.equalsIgnoreCase("1")){
+//            mysqlConnect.createTableStudents();
+//        } if (answerFromUser.equalsIgnoreCase("read") || answerFromUser.equalsIgnoreCase("2")){
+//            readFromTableDatabase(mysqlConnect, TABLE_NAME);
+//        } else {
+//            System.out.println("Start the program again, unexpected error!");
+//            System.exit(0);
+//        }
         //CREATE new table named students in database
 //        mysqlConnect.createTableStudents();
         //INSERT data into table students @USAGE: IN COMBINATION WITH XML METHOD
@@ -48,6 +57,8 @@ public class Main {
 //                    s.getSubject(), s.getMarks());
 //        }
 
+//        insertStudentsIntoTableUsingDAOandDTOPattern(studentArrayList);
+
 
         //delete
 //        mysqlConnect.deleteDuplicate();
@@ -55,8 +66,28 @@ public class Main {
 
 
 
-        readFromTableDatabase(mysqlConnect, TABLE_NAME);
-//        mysqlConnect.printTable(TABLE_NAME);
+
+        mysqlConnect.printTable(TABLE_NAME);
+    }
+
+    private static void insertStudentsIntoTableUsingDAOandDTOPattern(ArrayList<Student> studentArrayList) {
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager(USERNAME, PASSWORD);
+        try {
+            Connection connection = dcm.getConnection();
+            StudentDAO studentDAO = new StudentDAO(connection);
+            for (Student s: studentArrayList) {
+                studentDAO.create(s);
+            }
+        }catch (SQLException e){e.printStackTrace();}
+    }
+
+    static void prepareStatementForStudentObject(Student s, PreparedStatement statement) throws SQLException {
+        statement.setLong(1, s.getId());
+        statement.setString(2,s.getFirstName());
+        statement.setString(3,s.getLastName());
+        statement.setString(4,s.getSubject());
+        statement.setString(5,s.getMarks());
+        statement.execute();
     }
 
     private static ArrayList<Student> readFromTableDatabase(MysqlConnect mysqlConnect, String tableName) {
@@ -72,7 +103,7 @@ public class Main {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 //transfering into POJO
-                studentArrayList.add(new Student(rs.getInt(MysqlConnect.STUDENT_ID),
+                studentArrayList.add(new Student(rs.getLong(MysqlConnect.STUDENT_ID),
                         rs.getString(MysqlConnect.FIRST_NAME),
                         rs.getString(MysqlConnect.LAST_NAME),
                         rs.getString(MysqlConnect.SUBJECT),

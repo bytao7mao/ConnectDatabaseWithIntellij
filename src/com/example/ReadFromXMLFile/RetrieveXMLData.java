@@ -1,7 +1,6 @@
 package com.example.ReadFromXMLFile;
 
-import com.example.DataAccessObject.Dao;
-import com.example.DataAccessObject.Student;
+import com.example.Student;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -13,10 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class RetrieveXMLData {
 
@@ -42,13 +38,13 @@ public class RetrieveXMLData {
         // nodeList is not iterable, so we are using for loop
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
-            System.out.println("\nNode name:" + node.getNodeName());
+//            System.out.println("\nNode name:" + node.getNodeName());
             if (node.getNodeType()==Node.ELEMENT_NODE){
                 Element eElement = (Element) node;
                 System.out.println();
 
                 students.add(new Student(
-                        Integer.valueOf(eElement.getElementsByTagName("id").item(0).getTextContent()),
+                        Long.valueOf(eElement.getElementsByTagName("id").item(0).getTextContent()),
                         eElement.getElementsByTagName("firstname").item(0).getTextContent(),
                         eElement.getElementsByTagName("lastname").item(0).getTextContent(),
                         eElement.getElementsByTagName("subject").item(0).getTextContent(),
