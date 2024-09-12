@@ -92,7 +92,7 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-//            mysqlConnect.disconnect();
+            mysqlConnect.disconnect();
         }
         return studentArrayList;
     }

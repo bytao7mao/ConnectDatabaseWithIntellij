@@ -10,7 +10,7 @@
     <student>
         <id>102</id>
         <firstname>Kapil</firstname>
-        <lastname>Kumar</lastname>
+        <lastname>Bangalore</lastname>
         <subject>Chemistry</subject>
         <marks>60</marks>
     </student>
@@ -24,7 +24,7 @@
     <student>
         <id>104</id>
         <firstname>Jitesh</firstname>
-        <lastname>Singh</lastname>
+        <lastname>Yamamoto</lastname>
         <subject>Physics</subject>
         <marks>76</marks>
     </student>
