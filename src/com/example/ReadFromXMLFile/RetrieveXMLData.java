@@ -45,24 +45,7 @@ public class RetrieveXMLData {
             if (node.getNodeType()==Node.ELEMENT_NODE){
                 Element eElement = (Element) node;
                 System.out.println();
-//                System.out.println("Element " + eElement.getElementsByTagName("id").item(0).getTextContent());
-//                System.out.println("" + eElement.getElementsByTagName("firstname").item(0).getTextContent());
-                //put id in ArrayList
-//                xmlDataArrayList.add(eElement.getElementsByTagName("id").item(i).getTextContent());
-////                System.out.println("Student id: "+ eElement.getElementsByTagName("id").item(0).getTextContent());
-//                //put firstName in Arraylist
-//                xmlDataArrayList.add(eElement.getElementsByTagName("firstname").item(i).getTextContent());
-////                System.out.println("First Name: "+ eElement.getElementsByTagName("firstname").item(0).getTextContent());
-//                //put lastName in ArrayList
-//                xmlDataArrayList.add(eElement.getElementsByTagName("lastname").item(i).getTextContent());
-////                System.out.println("Last Name: "+ eElement.getElementsByTagName("lastname").item(0).getTextContent());
-//                //put subject in ArrayList
-//                xmlDataArrayList.add(eElement.getElementsByTagName("subject").item(i).getTextContent());
-////                System.out.println("Subject: "+ eElement.getElementsByTagName("subject").item(0).getTextContent());
-//                //put marks in ArrayList
-//                xmlDataArrayList.add(eElement.getElementsByTagName("marks").item(i).getTextContent());
-//                System.out.println("Marks: "+ eElement.getElementsByTagName("marks").item(0).getTextContent());
-//                System.out.println(eElement.getElementsByTagName("id").item(i).getTextContent());
+
                 students.add(new Student(
                         Integer.valueOf(eElement.getElementsByTagName("id").item(0).getTextContent()),
                         eElement.getElementsByTagName("firstname").item(0).getTextContent(),

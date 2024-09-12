@@ -20,42 +20,32 @@ public class Main {
 //    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParserConfigurationException, IOException, SAXException {
-        ArrayList<Student> students = RetrieveXMLData.getXMLdata();
+        ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata();
 
         System.out.println();
-//        Integer id;
-//        ArrayList<String> fillArrayListwithXml = RetrieveXMLData.getXMLdata();
-
-//
-////        System.out.println(fillArrayListwithXml.get(0));//id
-//        id = Integer.valueOf((String) fillArrayListwithXml.get(0));
-//        System.out.println(id);
-//        System.out.println(fillArrayListwithXml.get(1).getClass());//name
-//        System.out.println(fillArrayListwithXml.get(2));//lastname
-//        System.out.println(fillArrayListwithXml.get(3));//subject
-//        System.out.println(fillArrayListwithXml.get(4));//marks
-
-
 
 
         MysqlConnect mysqlConnect = new MysqlConnect();
         mysqlConnect.connect();
 
-        //create new table named students in database
-        mysqlConnect.createTableStudents();
+        //CREATE new table named students in database
+//        mysqlConnect.createTableStudents();
         //INSERT data into table students @USAGE: IN COMBINATION WITH XML METHOD
 
-        for (Student s:students) {
+        for (Student s:studentArrayList) {
             System.out.println(s.getFirstName());
 
             System.out.println(s.getMarks());
 //
 //
-            mysqlConnect.insertIntoStudentsTable(
-                    s.getId(), s.getFirstName(), s.getLastName(),
-                    s.getSubject(), s.getMarks());
+            //INSERT data into students TABLE DB
+//            mysqlConnect.insertIntoStudentsTable(
+//                    s.getId(), s.getFirstName(), s.getLastName(),
+//                    s.getSubject(), s.getMarks());
         }
 
+
+        //delete
 //        mysqlConnect.deleteDuplicate();
 
 
@@ -74,14 +64,14 @@ public class Main {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 //retrieve each id from table
-                int id = rs.getInt("StudentID");
+                int id = rs.getInt(MysqlConnect.STUDENT_ID);
                 //retrieve each String from table
-                String name = rs.getString("LastName");
-                String firstName = rs.getString("FirstName");
-                String subject = rs.getString("Subject");
-                String marks = rs.getString("Marks");
+                String lastName = rs.getString(MysqlConnect.LAST_NAME);
+                String firstName = rs.getString(MysqlConnect.FIRST_NAME);
+                String subject = rs.getString(MysqlConnect.SUBJECT);
+                String marks = rs.getString(MysqlConnect.MARKS);
                 //Print each ID and Name
-                System.out.println("ID: " + id + ", Name: " + name +
+                System.out.println("ID: " + id + ", Name: " + lastName +
                         ", First Name: " + firstName + ", Subject: " + subject
                 + ", Marks: " + marks);
             }
