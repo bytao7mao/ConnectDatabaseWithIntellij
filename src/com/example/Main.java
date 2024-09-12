@@ -23,6 +23,7 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParserConfigurationException, IOException, SAXException {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Please input your path file, location of your xml file:\n");
         ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata(new File(sc.nextLine()));
 
         System.out.println();

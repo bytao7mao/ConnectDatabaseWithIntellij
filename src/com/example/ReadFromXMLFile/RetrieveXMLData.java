@@ -28,7 +28,6 @@ public class RetrieveXMLData {
         //creating a constructor of file class and parsing an XML file
 //        File file = new File(PATHNAME);
 
-
         String xml = ""; //Populated XML String....
         //an instance of factory that gives a document builder
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
