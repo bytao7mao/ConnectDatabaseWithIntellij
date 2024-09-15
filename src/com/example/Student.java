@@ -3,17 +3,26 @@ package com.example;
 import com.example.Util.DataTransferObject;
 
 public class Student implements DataTransferObject {
-    private Long id;
+    private int id;
     private String firstName;
     private String lastName;
     private String subject;
     private String marks;
 
-    public long getId() {
+    public Student(){}
+    public Student(int id, String firstName, String lastName, String subject, String marks) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.subject = subject;
+        this.marks = marks;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -60,11 +69,5 @@ public class Student implements DataTransferObject {
                 '}';
     }
 
-    public Student(Long id, String firstName, String lastName, String subject, String marks) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.subject = subject;
-        this.marks = marks;
-    }
+
 }

@@ -63,7 +63,7 @@ public class Main {
         //delete
 //        mysqlConnect.deleteDuplicate();
 
-
+        updateStudentsIntoTableUsingDAOandDTOPattern(102, "GORILLA");
 
 
 
@@ -76,19 +76,22 @@ public class Main {
             Connection connection = dcm.getConnection();
             StudentDAO studentDAO = new StudentDAO(connection);
             for (Student s: studentArrayList) {
+                //create new student from info xml file and
+                //makes an insert into database table
                 studentDAO.create(s);
             }
-        }catch (SQLException e){e.printStackTrace();}
+        } catch (SQLException e){e.printStackTrace();}
+    }
+    private static void updateStudentsIntoTableUsingDAOandDTOPattern(int id, String firstName) {
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager(USERNAME, PASSWORD);
+        try {
+            Connection connection = dcm.getConnection();
+            StudentDAO studentDAO = new StudentDAO(connection);
+            Student getStudentById = studentDAO.findById(id);
+            studentDAO.update(getStudentById, firstName);
+        } catch (SQLException e){e.printStackTrace();}
     }
 
-    static void prepareStatementForStudentObject(Student s, PreparedStatement statement) throws SQLException {
-        statement.setLong(1, s.getId());
-        statement.setString(2,s.getFirstName());
-        statement.setString(3,s.getLastName());
-        statement.setString(4,s.getSubject());
-        statement.setString(5,s.getMarks());
-        statement.execute();
-    }
 
     private static ArrayList<Student> readFromTableDatabase(MysqlConnect mysqlConnect, String tableName) {
         ArrayList<Student> studentArrayList = new ArrayList<>();
@@ -103,7 +106,7 @@ public class Main {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 //transfering into POJO
-                studentArrayList.add(new Student(rs.getLong(MysqlConnect.STUDENT_ID),
+                studentArrayList.add(new Student(rs.getInt(MysqlConnect.STUDENT_ID),
                         rs.getString(MysqlConnect.FIRST_NAME),
                         rs.getString(MysqlConnect.LAST_NAME),
                         rs.getString(MysqlConnect.SUBJECT),

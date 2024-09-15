@@ -44,13 +44,12 @@ public class RetrieveXMLData {
                 System.out.println();
 
                 students.add(new Student(
-                        Long.valueOf(eElement.getElementsByTagName("id").item(0).getTextContent()),
+                        Integer.valueOf(eElement.getElementsByTagName("id").item(0).getTextContent()),
                         eElement.getElementsByTagName("firstname").item(0).getTextContent(),
                         eElement.getElementsByTagName("lastname").item(0).getTextContent(),
                         eElement.getElementsByTagName("subject").item(0).getTextContent(),
                         eElement.getElementsByTagName("marks").item(0).getTextContent()
                         ));
-
             }
         }
         return students;
