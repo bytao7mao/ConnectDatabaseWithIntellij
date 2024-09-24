@@ -5,8 +5,8 @@
 ### Mockup of retrieving Data (work in progress)
 <br><img align="left" width="300" src="src/resources/test_vid.mp4" alt="cmd video" />
 
-<br><img align="left" width="300" src="src/resources/step1.PNG" alt="cmd video" />
+<br><img align="left" width="500" src="src/resources/step1.PNG" alt="cmd picture" />
 
-<br><img align="left" width="300" src="src/resources/step2.PNG" alt="cmd video" />
+<br><img align="left" width="500" src="src/resources/step2.PNG" alt="cmd picture" />
 
-<br><img align="left" width="300" src="src/resources/step3.PNG" alt="cmd video" />
+<br><img align="left" width="500" src="src/resources/step3.PNG" alt="cmd picture" />
