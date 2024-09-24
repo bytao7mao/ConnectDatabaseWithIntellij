@@ -64,9 +64,9 @@ public class Main {
         //delete
 //        mysqlConnect.deleteDuplicate();
 
-//        updateStudentsIntoTableUsingDAOandDTOPattern(102, "GORILLA");
+//        updateStudentsIntoTableUsingDAOandDTOPattern(102, "Kapil", "A", "Math", "99");
 
-        readLastValue(mysqlConnect, TABLE_NAME);
+//        readLastValue(mysqlConnect, TABLE_NAME);
 
         mysqlConnect.printTable(TABLE_NAME);
 //        readFromTableDatabase(mysqlConnect, TABLE_NAME);
@@ -86,13 +86,13 @@ public class Main {
             }
         } catch (SQLException e){e.printStackTrace();}
     }
-    private static void updateStudentsIntoTableUsingDAOandDTOPattern(int id, String firstName) {
+    private static void updateStudentsIntoTableUsingDAOandDTOPattern(int id, String firstName, String lastName, String subject, String marks) {
         DatabaseConnectionManager dcm = new DatabaseConnectionManager(USERNAME, PASSWORD);
         try {
             Connection connection = dcm.getConnection();
             StudentDAO studentDAO = new StudentDAO(connection);
             Student getStudentById = studentDAO.findById(id);
-            studentDAO.update(getStudentById, firstName);
+            studentDAO.update(getStudentById, firstName, lastName, subject, marks);
         } catch (SQLException e){e.printStackTrace();}
     }
 

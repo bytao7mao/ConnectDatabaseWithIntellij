@@ -94,10 +94,10 @@ public class StudentDAO extends DataAccessObject<Student> {
 //        return null;
 //    }
 
-    public Student update(Student dto, String firstName){
+    public Student update(Student dto, String firstName, String lastName, String subject, String marks){
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE)){
             activateSafeUpdates();
-            prepareUpdateStatementForStudentObjectUpdateFirstName(dto, statement, firstName);
+            prepareUpdateStatementForStudentObjectUpdateFirstName(dto, statement, firstName, lastName, subject, marks);
         }catch (SQLException e){e.printStackTrace();throw new RuntimeException(e);}
         return null;
     }
@@ -124,11 +124,12 @@ public class StudentDAO extends DataAccessObject<Student> {
         statement.execute();
     }
     private void prepareUpdateStatementForStudentObjectUpdateFirstName(Student s,PreparedStatement statement,
-                                                        String updateFirstName) throws SQLException {
+                                                        String updateFirstName, String updateLastName,
+                                                                       String updateSubject, String updateMarks) throws SQLException {
         statement.setString(1,updateFirstName);
-        statement.setString(2,s.getLastName());
-        statement.setString(3,s.getSubject());
-        statement.setString(4,s.getMarks());
+        statement.setString(2,updateLastName);
+        statement.setString(3,updateSubject);
+        statement.setString(4,updateMarks);
         statement.setInt(5, s.getId());
         statement.execute();
     }
