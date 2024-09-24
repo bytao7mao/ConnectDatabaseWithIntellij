@@ -29,6 +29,25 @@ public class StudentDAO extends DataAccessObject<Student> {
             LAST_NAME + " = ?," +
             SUBJECT + " = ?," +
             MARKS + " = ?" + " WHERE " + STUDENT_ID + " = ?;";
+    public static final String LASTNAMESTUDENTFROMTABLE = STUDENTTABLE+"."+LAST_NAME;
+    public static final String IDSTUDENTFROMTABLE = STUDENTTABLE + "." + STUDENT_ID;
+    public static final String FIRSTNAMEFROMTABLE = STUDENTTABLE + "."+FIRST_NAME;
+    public static final String SUBJECTFROMTABLE = STUDENTTABLE + "."+SUBJECT;
+    public static final String MARKSFROMTABLE = STUDENTTABLE + "."+MARKS;
+
+
+    //-- OFFSET 0 LAST VALUE
+    public static final String LASTVALFROMTABLE = "SELECT " + IDSTUDENTFROMTABLE +
+            ", " + FIRSTNAMEFROMTABLE + ", " + LASTNAMESTUDENTFROMTABLE + ", " +
+            SUBJECTFROMTABLE + ", " + MARKSFROMTABLE +
+            " FROM " + STUDENTTABLE + " " +
+            " ORDER BY " + IDSTUDENTFROMTABLE
+            + " DESC LIMIT 1 OFFSET 0;";
+
+
+
+
+
     public StudentDAO(Connection connection) {
         super(connection);
     }
@@ -36,7 +55,7 @@ public class StudentDAO extends DataAccessObject<Student> {
     @Override
     public Student findById(long id) {
         Student student = new Student();
-        try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);){
+        try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE)){
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
@@ -64,8 +83,19 @@ public class StudentDAO extends DataAccessObject<Student> {
         return null;
     }
 
+
+
+
+//    public Student readLastValueFromDB() {
+//        try(PreparedStatement statement = this.connection.prepareStatement(LASTVALFROMTABLE)){
+//            activateSafeUpdates();
+//            statement.execute();
+//        }catch (SQLException e){e.printStackTrace();throw new RuntimeException(e);}
+//        return null;
+//    }
+
     public Student update(Student dto, String firstName){
-        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);){
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE)){
             activateSafeUpdates();
             prepareUpdateStatementForStudentObjectUpdateFirstName(dto, statement, firstName);
         }catch (SQLException e){e.printStackTrace();throw new RuntimeException(e);}

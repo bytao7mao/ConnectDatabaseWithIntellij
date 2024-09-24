@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static com.example.MysqlConnect.*;
+import static com.example.StudentDAO.LASTVALFROMTABLE;
 
 public class Main {
     public static final String TABLE_NAME = "students";
@@ -63,12 +64,15 @@ public class Main {
         //delete
 //        mysqlConnect.deleteDuplicate();
 
-        updateStudentsIntoTableUsingDAOandDTOPattern(102, "GORILLA");
+//        updateStudentsIntoTableUsingDAOandDTOPattern(102, "GORILLA");
 
-
+        readLastValue(mysqlConnect, TABLE_NAME);
 
         mysqlConnect.printTable(TABLE_NAME);
+//        readFromTableDatabase(mysqlConnect, TABLE_NAME);
     }
+
+
 
     private static void insertStudentsIntoTableUsingDAOandDTOPattern(ArrayList<Student> studentArrayList) {
         DatabaseConnectionManager dcm = new DatabaseConnectionManager(USERNAME, PASSWORD);
@@ -133,6 +137,43 @@ public class Main {
             mysqlConnect.disconnect();
         }
         return studentArrayList;
+    }
+
+    private static void readLastValue(MysqlConnect mysqlConnect, String tableName) throws SQLException {
+        ArrayList<Student> studentArrayList = new ArrayList<>();
+        //read data from database, table students
+        try {
+            PreparedStatement statement =
+                    mysqlConnect.connect().
+                            prepareStatement(
+                                    LASTVALFROMTABLE);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                //transfering into POJO
+                studentArrayList.add(new Student(rs.getInt(MysqlConnect.STUDENT_ID),
+                        rs.getString(MysqlConnect.FIRST_NAME),
+                        rs.getString(MysqlConnect.LAST_NAME),
+                        rs.getString(MysqlConnect.SUBJECT),
+                        rs.getString(MysqlConnect.MARKS)));
+                //retrieve each id from table
+//                int id = rs.getInt(MysqlConnect.STUDENT_ID);
+//                //retrieve each String from table
+//                String lastName = rs.getString(MysqlConnect.LAST_NAME);
+//                String firstName = rs.getString(MysqlConnect.FIRST_NAME);
+//                String subject = rs.getString(MysqlConnect.SUBJECT);
+//                String marks = rs.getString(MysqlConnect.MARKS);
+                //Print each ID and Name
+            }
+            for (Student s:studentArrayList) {
+                System.out.println("ID: " + s.getId() + ", Name: " + s.getFirstName() +
+                        ", First Name: " + s.getLastName() + ", Subject: " + s.getSubject()
+                        + ", Marks: " + s.getMarks());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            mysqlConnect.disconnect();
+        }
     }
 
 //            Connection conn = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);

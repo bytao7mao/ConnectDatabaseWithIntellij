@@ -69,7 +69,7 @@ public class MysqlConnect {
 
     public void createTableStudents() throws SQLException {
         String sqlCreate = "CREATE TABLE " + STUDENTTABLE + " (\n" +
-                "    " + STUDENT_ID + " int,\n" +
+                "    " + STUDENT_ID + " int NOT NULL PRIMARY KEY,\n" +
                 "    " + LAST_NAME + " varchar(255),\n" +
                 "    " + FIRST_NAME + " varchar(255),\n" +
                 "    " + SUBJECT + " varchar(255),\n" +
