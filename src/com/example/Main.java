@@ -17,14 +17,14 @@ public class Main {
     public static final String TABLE_NAME = "students";
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParserConfigurationException, IOException, SAXException {
 
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Please input your path file, location of your xml file:\n");
-//        ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata(new File(sc.nextLine()));
-//        System.out.println("What operation do you request me to do ?\n" +
-//                "1.CREATE\n" +
-//                "2.READ\n" +
-//                "3.UPDATE\n" +
-//                "4.DELETE\n");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input your path file, location of your xml file:\n");
+        ArrayList<Student> studentArrayList = RetrieveXMLData.getXMLdata(new File(sc.nextLine()));
+        System.out.println("What operation do you request me to do ?\n" +
+                "1.CREATE\n" +
+                "2.READ\n" +
+                "3.UPDATE\n" +
+                "4.DELETE\n");
 
 
         System.out.println();
@@ -33,15 +33,23 @@ public class Main {
         MysqlConnect mysqlConnect = new MysqlConnect();
         mysqlConnect.connect();
 
-//        String answerFromUser = sc.nextLine();
-//        if (answerFromUser.equalsIgnoreCase("create") || answerFromUser.equalsIgnoreCase("1")){
-//            mysqlConnect.createTableStudents();
-//        } if (answerFromUser.equalsIgnoreCase("read") || answerFromUser.equalsIgnoreCase("2")){
-//            readFromTableDatabase(mysqlConnect, TABLE_NAME);
-//        } else {
-//            System.out.println("Start the program again, unexpected error!");
-//            System.exit(0);
-//        }
+        String answerFromUser = sc.nextLine();
+        if (answerFromUser.equalsIgnoreCase("create") || answerFromUser.equalsIgnoreCase("1")){
+            mysqlConnect.createTableStudents();
+        } if (answerFromUser.equalsIgnoreCase("read") || answerFromUser.equalsIgnoreCase("2")){
+            readFromTableDatabase(mysqlConnect, TABLE_NAME);
+        } if (answerFromUser.equalsIgnoreCase("update") || answerFromUser.equalsIgnoreCase("3")) {
+            System.out.println("Please insert the following: id, first name, last name, subject and marks");
+            int id = sc.nextInt();
+            String firstName = sc.next();
+            String lastName = sc.next();
+            String subject = sc.next();
+            String marks = sc.next();
+            updateStudentsIntoTableUsingDAOandDTOPattern(id, firstName, lastName, subject, marks);
+        } else {
+            System.out.println("Start the program again, unexpected error!");
+            System.exit(0);
+        }
         //CREATE new table named students in database
 //        mysqlConnect.createTableStudents();
         //INSERT data into table students @USAGE: IN COMBINATION WITH XML METHOD
@@ -68,6 +76,9 @@ public class Main {
 
 //        readLastValue(mysqlConnect, TABLE_NAME);
 
+
+        //print table
+        System.out.println("This is the update table: " + "\n");
         mysqlConnect.printTable(TABLE_NAME);
 //        readFromTableDatabase(mysqlConnect, TABLE_NAME);
     }
