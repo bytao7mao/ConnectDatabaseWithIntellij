@@ -3,7 +3,14 @@
 
 
 ### Mockup of retrieving Data (work in progress)
-https://github.com/user-attachments/assets/a2a88bd5-b39b-417b-980e-1719f3076ee0
+
+
+
+https://github.com/user-attachments/assets/b69efea5-6eed-4e49-a356-19110bc8a78f
+
+
+
+
 [//]: # (<video src='video1.mov' width=180/> | <video src='video2.mp4' width=180/>)
 <br><video align="left" width="300" src="src/resources/test_vid.mp4" alt="cmd video" />
 
