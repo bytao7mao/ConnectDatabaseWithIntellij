@@ -3,7 +3,9 @@
 
 
 ### Mockup of retrieving Data (work in progress)
-<br><img align="left" width="300" src="src/resources/test_vid.mp4" alt="cmd video" />
+
+[//]: # (<video src='video1.mov' width=180/> | <video src='video2.mp4' width=180/>)
+<br><video align="left" width="300" src="src/resources/test_vid.mp4" alt="cmd video" />
 
 <br><img align="left" width="500" src="src/resources/step1.PNG" alt="cmd picture" />
 
