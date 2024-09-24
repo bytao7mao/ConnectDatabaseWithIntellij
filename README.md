@@ -1,4 +1,6 @@
-in terminal use: mysql - u root -p mysql [to connect to database named mysql.sql]
-enter password
-type: use persons;
-type: select * from persons; [to see if you can retrieve data from database table]
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+# JavaConnectionToDatabase - gets xml data and creates table of it in database
+
+
+### Mockup of retrieving Data (work in progress)
+<br><img align="left" width="300" src="src/main/resources/test_vid.mp4" alt="cmd video" />
